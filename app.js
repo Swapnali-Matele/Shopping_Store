@@ -7,6 +7,7 @@ dotenv.config();
 const DATABASE_URL = process.env.DATABASE_URL
 const productCatalog = require('./routes/productCatalog');
 const userRoutes = require('./routes/userRoutes');
+const cartRouter = require('./routes/cartRoutes');
 
 
 
@@ -14,6 +15,7 @@ const userRoutes = require('./routes/userRoutes');
 app.use(express.json())
 app.use('/api/user', userRoutes)
 app.use('/api' ,productCatalog)
+app.use('/cart', cartRouter)
 
 //database connection 
 const start = async () => {
