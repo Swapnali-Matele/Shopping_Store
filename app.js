@@ -8,6 +8,7 @@ const DATABASE_URL = process.env.DATABASE_URL
 const productCatalog = require('./routes/productCatalog');
 const userRoutes = require('./routes/userRoutes');
 const cartRouter = require('./routes/cartRoutes');
+const orderRouter = require('./routes/orderRoutes')
 
 
 
@@ -16,6 +17,7 @@ app.use(express.json())
 app.use('/api/user', userRoutes)
 app.use('/api' ,productCatalog)
 app.use('/cart', cartRouter)
+app.use('/order', orderRouter)
 
 //database connection 
 const start = async () => {

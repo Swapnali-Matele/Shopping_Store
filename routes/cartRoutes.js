@@ -4,5 +4,5 @@ const {showCart, addToCart, removeFromCart}= require('../controller/cart')
 
 router.get('/showcart', showCart);
 router.post('/addcart', addToCart);
-router.post('/removefromcart', removeFromCart);
+router.delete('/removefromcart', removeFromCart);
 module.exports = router;

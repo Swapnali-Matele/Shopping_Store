@@ -6,10 +6,10 @@ const orderSchema = new mongoose.Schema({
         id : [{ type: mongoose.Schema.Types.ObjectId, 
             ref: 'cartSchema' }] 
     },
-    o_date_time:{
-        type: DateTime,
-        default:DateTime.now(),
-    },
+    // o_date_time:{
+    //     type: Date
+    //     default: () => Date.now() + 7*24*60*60*1000,
+    // },
     qty:{
         type: Number,
         required: true,

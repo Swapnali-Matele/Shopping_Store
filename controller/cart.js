@@ -38,6 +38,7 @@ const addToCart = async (req, res)=>{
             amount:amount,
             total_price:total_price
           });
+          
           //here we saved the data provided by user into  db
 
           await doc.save();
@@ -53,8 +54,7 @@ const removeFromCart = async (req, res)=>{
     try{
 
         const {product_ID,user_ID} = req.body;
-        const cart_product = await cartSchema.find({product_ID,user_ID})
-
+        const cart_product = await cartSchema.findOneAndDelete({product_ID,user_ID})
         res.send('product removed from cart successfully');
     }catch(err){
         res.send(err.message);

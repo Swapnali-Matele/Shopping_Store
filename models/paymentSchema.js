@@ -22,10 +22,10 @@ const paymentSchema = new mongoose.Schema({
         enum: ['Unpaid', 'Pending','Paid'],
         default: 'Pending',
     },
-    payment_date:{
-        type: DateTime,
-        default: DateTime.now(),
-    },
+    // payment_date:{
+    //     type: DateTime,
+    //     default: DateTime.now(),
+    // },
 });
 
 module.exports = paymentSchema;
