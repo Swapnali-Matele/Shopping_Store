@@ -1,11 +1,14 @@
 const Ajv = require('ajv');
 const ajv = new Ajv();
 const userSchema = require("../models/userSchema");
+const jwt = require('jsonwebtoken')
+
 
 
 const userRegistration = async (req, res) => {
   try{
   const data = req.body
+  
   const a = await userSchema.find({email: data.email})
   if(!a){
   const add = new userSchema(data)
@@ -24,18 +27,23 @@ const userRegistration = async (req, res) => {
 const userLogin = async (req, res) => {
   try {
     const data = req.body;
-
-    //await userSchema.findOne({ email: email, password: password});
-    const userLogged = await userSchema.find({
-      email: email,
-      password: password,
+    //console.log(data)
+    const userLogged = await userSchema.findOne({
+      email: data.email,
+      password: data.password,
     });
-    if(userLogged){
-    //console.log(userLogged);
-    res.status(200).json({status: 200, data: userLogged, message: "Success"})
-  }else{
-    res.status(400).json({status: 400, data:{}, message:"UserId or password is wrong"})
-  }
+    //console.log(userLogged)
+    if(!userLogged) {
+      return res.status(400).json({status: 400, data:{}, message:"UserId or password is wrong"})
+    }
+    
+    const secret = process.env.JWT_SECRET_KEY
+    //console.log(secret)
+    console.log(userLogged)
+    const token = jwt.sign({_id: userLogged._id}, secret,{expiresIn:'60m'})
+    console.log(token)
+    res.status(200).json({status: 200, data:{token}, message: 'Logged in sucessfully'})
+
 } catch (err) {
     res.send("Your password or email is incorrect");
   }

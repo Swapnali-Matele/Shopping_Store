@@ -6,7 +6,8 @@ const showCart = async (req, res)=>{
     try{
 
     const {email, password} = req.body;
-    const user = await userSchema.find({email, password})
+    // const user = await userSchema.find({email, password})
+    const user = req.user
     const show_cart = await cartSchema.find({_id: user._id})
     if(show_cart === true){
         res.send(show_cart);
@@ -26,8 +27,8 @@ const addToCart = async (req, res)=>{
 
     const{user_ID,product_ID, qty, 
         material, inStock,amount,total_price} = req.body;
-        console.log(req.body);
-        const cart_product = await cartSchema.find({user_ID, product_ID,material,inStock});
+        
+        const cart_product = await cartSchema.find({user_ID:user_ID});
         
         const doc = new cartSchema({
             user_ID: user_ID,

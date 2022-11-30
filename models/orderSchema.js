@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 const cartSchema = require('./cartSchema')
+const paymentSchema = require('./paymentSchema')
 
 const orderSchema = new mongoose.Schema({
-    cart_ID:{
-        id : [{ type: mongoose.Schema.Types.ObjectId, 
-            ref: 'cartSchema' }] 
+    
+    user_ID:{
+         type: mongoose.Schema.Types.ObjectId, 
+            ref: 'userSchema' 
     },
     // o_date_time:{
     //     type: Date
@@ -17,7 +19,7 @@ const orderSchema = new mongoose.Schema({
     delivery_status:{
         type: String,
         enum: ['shipped', 'delivered', 'canceled'],
-        default: 'delivered',
+        default: 'shipped',
     },
     amount:{
         type: Number,
@@ -31,7 +33,17 @@ const orderSchema = new mongoose.Schema({
         type:String,
         enum: ['UPI', 'Netbanking', 'CardPayment'],
         default: 'UPI',
-    }
+    },
+    payment_ID: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'paymentSchema' 
+    },
+    payment_status:{
+        type: String,
+        enum: ['Unpid', 'Paid'],
+        default: 'Paid'
+   }
+
 })
 
-module.exports = orderSchema;
+module.exports = mongoose.model('order',orderSchema);

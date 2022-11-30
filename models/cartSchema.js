@@ -33,6 +33,11 @@ const cartSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  payment_ID: {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: "paymentSchema" 
+
+  }
 });
 
 console.log();
