@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const furnitureSchema = require("./furnitureSchema");
+const validator = require('validator');
 //Defining schema
 
 const cartSchema = new mongoose.Schema({
@@ -13,25 +14,25 @@ const cartSchema = new mongoose.Schema({
   },
   qty: {
     type: Number,
-    required: true,
+    default:1
   },
   material: {
     type: String,
     enum: ["Wooden", "Metal", "Fiber"],
     default: "Wooden",
   },
-  inStock: {
-    type: Boolean,
-    required: true,
-  },
-  amount: {
+  InStock: {
     type: Number,
-    required: true,
+    default : 10,
+  },
+  Price: {
+    type: Number,
+   
   },
 
   total_price: {
     type: Number,
-    required: true,
+    
   },
   payment_ID: {
     type: mongoose.Schema.Types.ObjectId, 

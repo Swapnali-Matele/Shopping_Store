@@ -1,4 +1,5 @@
 const mongoose= require('mongoose');
+const validator = require('validator');
 //Defining schema
 
 const furnitureSchema = new mongoose.Schema({
@@ -21,11 +22,13 @@ const furnitureSchema = new mongoose.Schema({
         type: Array,
         required: true,
         trim: true,
+        default: 'Wooden',
     },
     color:{
         type: Array,
         required: true,
         trim: true,
+        default:'maroon',
     },
     Price:{
         type: Number,

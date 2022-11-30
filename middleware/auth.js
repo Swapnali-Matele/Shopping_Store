@@ -19,7 +19,7 @@ async function authenticate(req, res, next) {
     if(!userDetails) {
         return res.status(401).json({message: "No Such User Found"})
     }
-    res.user = userDetails
+    req.user = userDetails
     next()
     }catch(error) {
         console.log(error)

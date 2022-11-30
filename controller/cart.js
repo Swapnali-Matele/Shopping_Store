@@ -1,15 +1,16 @@
+const Ajv = require('ajv');
+const ajv = new Ajv();
 const furnitureSchema = require('../models/furnitureSchema');
 const userSchema = require('../models/userSchema');
 const cartSchema = require('../models/cartSchema');
 
 const showCart = async (req, res)=>{
     try{
-
-    const {email, password} = req.body;
+    // const {email, password} = req.body;
     // const user = await userSchema.find({email, password})
     const user = req.user
-    const show_cart = await cartSchema.find({_id: user._id})
-    if(show_cart === true){
+    const show_cart = await cartSchema.find({user_ID: user._id})
+    if(show_cart && show_cart.length){
         res.send(show_cart);
     }else{
         res.send('Your cart is empty please add for buy');
@@ -25,19 +26,21 @@ const showCart = async (req, res)=>{
 const addToCart = async (req, res)=>{
     try{
 
-    const{user_ID,product_ID, qty, 
-        material, inStock,amount,total_price} = req.body;
+    const data = req.body;
+    const user = req.user
         
-        const cart_product = await cartSchema.find({user_ID:user_ID});
+        const cart_product = await furnitureSchema.findOne({_id:data.product_ID});
+        console.log(cart_product)
         
         const doc = new cartSchema({
-            user_ID: user_ID,
-            product_ID: product_ID,
-            qty: qty,
-            material:material,
-            inStock:inStock,
-            amount:amount,
-            total_price:total_price
+            user_ID: user.user_ID,
+            product_ID: cart_product._id,
+            qty: data.qty,
+            material:data.material,
+            color:data.color,
+            InStock:cart_product.InStock,
+            Price:cart_product.Price,
+            total_price: data.qty * cart_product.Price
           });
           
           //here we saved the data provided by user into  db
@@ -49,6 +52,11 @@ const addToCart = async (req, res)=>{
         res.send(err.message);
     }
 
+}
+
+const updateCartProduct = async (req,res)=>{
+    user = user.req
+    const cart_product = await cartSchema.findOneAndUpdate({})
 }
 
 const removeFromCart = async (req, res)=>{
