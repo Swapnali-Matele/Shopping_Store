@@ -15,15 +15,15 @@ const placedOrder = async (req, res) => {
         
     if(a){
         
-        for (let i= 0; i< a.length;i++){
-        
+        //for (let i= 0; i< a.length;i++)
+        for (const element of add){
          const add = new orderSchema({
             user_ID: data.user_ID,
-            cart_ID: a[i]._id,
-            qty: a[i].qty,
+            cart_ID: element._id,
+            qty: element.qty,
             delivery_status: B.delivery_status,
-            amount: a[i].amount,
-            total_price:a[i].amount* a[i].qty,
+            amount: element.amount,
+            total_price: element.amount* element.qty,
             payment_method:data.payment_method,
             payment_id: B._id,
             payment_status: B.payment_status

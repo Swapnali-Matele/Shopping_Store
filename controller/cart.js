@@ -55,8 +55,16 @@ const addToCart = async (req, res)=>{
 }
 
 const updateCartProduct = async (req,res)=>{
-    user = user.req
-    const cart_product = await cartSchema.findOneAndUpdate({})
+    try{
+   const data = req.body
+   //const user = user.req
+    const cart_product = await cartSchema.updateOne({_id: data._id},{qty: data.qty},{new: true, runValidators: true,
+      });
+    res.status(200).json({status: 200, data:{cart_product}, message: "Your crat has been updated "})
+}catch(err){
+    res.send(err)
+    console.log(err,'here is the error')
+}
 }
 
 const removeFromCart = async (req, res)=>{
@@ -74,5 +82,6 @@ const removeFromCart = async (req, res)=>{
 module.exports = {
     showCart,
     addToCart,
+    updateCartProduct,
     removeFromCart,
 }
